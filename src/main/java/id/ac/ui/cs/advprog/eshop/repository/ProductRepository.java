@@ -20,7 +20,7 @@ public class ProductRepository {
         productData.remove(product);
     }
 
-    public Product findProductById (String productId) {
+    public Product getProductById (String productId) {
         for (Product product : productData) {
             if (product.getProductId().equals(productId)) {
                 return product;
