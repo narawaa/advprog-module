@@ -65,6 +65,82 @@ class ProductRepositoryTest {
         assertFalse(productIterator.hasNext());
     }
 
+    @Test
+    void testCreateAndEdit() {
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId(product1.getProductId());
+        product2.setProductName("Sampo Cap Bambang Siapa?");
+        product2.setProductQuantity(10);
+        Product editedProduct = productRepository.edit(product2);
+
+        assertNotNull(editedProduct);
+        assertEquals("Sampo Cap Bambang Siapa?", editedProduct.getProductName());
+        assertEquals(10, editedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditNonExistentProduct() {
+        Product product = new Product();
+        product.setProductId("");
+        product.setProductName("Ini Apa?");
+        product.setProductQuantity(1);
+
+        Product editedProduct = productRepository.edit(product);
+        assertNull(editedProduct);
+    }
+
+    @Test
+    void testCreateAndDelete() {
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        productRepository.delete(product1);
+
+        Iterator<Product> afterDelete = productRepository.findAll();
+        assertFalse(afterDelete.hasNext());
+    }
+
+    @Test
+    void testDeleteNonExistentProduct() {
+        Product product = new Product();
+        product.setProductName("Siapa?");
+        product.setProductQuantity(1);
+        productRepository.create(product);
+
+        productRepository.delete(product);
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testEditAndDelete() {
+        Product product1 = new Product();
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product2.setProductId(product1.getProductId());
+        product2.setProductName("Sampo Cap Bambang Siapa?");
+        product2.setProductQuantity(10);
+        Product editedProduct = productRepository.edit(product2);
+
+        assertNotNull(editedProduct);
+        productRepository.delete(editedProduct);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
 }
 
 
