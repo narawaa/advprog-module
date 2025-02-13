@@ -16,6 +16,11 @@ public class ProductRepository {
         return product;
     }
 
+    public void delete (Product product) {
+        productData.remove(product);
+    }
+
+    
     public Product edit(Product product) {
         int counter = 0;
         for (Product p : productData) {
