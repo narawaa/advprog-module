@@ -15,11 +15,6 @@ public class ProductRepository {
         productData.add(product);
         return product;
     }
-
-    public void delete (Product product) {
-        productData.remove(product);
-    }
-
     
     public Product edit(Product product) {
         int counter = 0;
@@ -31,6 +26,10 @@ public class ProductRepository {
             counter++;
         }
         return null;
+    }
+
+    public void delete (Product product) {
+        productData.remove(product);
     }
 
     public Product getProductById(String productId) {
