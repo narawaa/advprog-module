@@ -18,7 +18,7 @@ untuk menangani request, `ProductService` untuk bisnis logic, dan `ProductReposi
 1. **Model Binding dengan `@ModelAttribute`**: Mengurangi manipulasi data manual saat menerima input dari form.
 2. **UUID untuk Identifikasi Produk**: Menggunakan UUID agar lebih aman dibandingkan auto-increment integer.
 
-**Kesalahan dan Perbaikannya**
+**Kesalahan dan Perbaikannya**<br/>
 Disini masih menggunakan GET atau POST saja, seharusnya bisa disesuaikan dengan menggunakan method lain seperti PUT dan 
 DELETE.
 
