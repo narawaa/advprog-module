@@ -15,7 +15,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SeleniumJupiter.class)
-public class CreateProductFunctionalTest {
+class CreateProductFunctionalTest {
 
     @LocalServerPort
     private int serverPort;
@@ -39,7 +39,7 @@ public class CreateProductFunctionalTest {
     }
 
     @Test
-    void createProductPost_isCorret(ChromeDriver driver) throws Exception {
+    void createProductPost_isCorrect(ChromeDriver driver) throws Exception {
         driver.get(baseUrl + "/product/create");
         driver.findElement(By.id("nameInput")).sendKeys("Sampo Cap");
         driver.findElement(By.id("quantityInput")).sendKeys("10");
