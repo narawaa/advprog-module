@@ -3,6 +3,7 @@ Pemrograman Lanjut (Advanced Programming) 2024/2025 Genap
 * NPM     : 2306241770
 * Kelas   : Pemrograman Lanjut - A
 
+Link Deployment: [ADVShop](https://advprog-module-narawaa.koyeb.app)
 
 <details>
 <summary>Module 1</summary>
@@ -37,5 +38,33 @@ bagian lain. Hal ini juga berdampak pada keterbacaan kode, di mana pengulangan y
 panjang dan tidak efisien. Untuk mengatasi ini, sebaiknya menggunakan base test class agar setup dapat digunakan ulang 
 tanpa harus menyalin kode di setiap test suite. Selain itu, parameterized tests dapat digunakan untuk menghindari 
 pengulangan test case yang memiliki pola serupa.
+
+</details>
+
+<details>
+<summary>Module 2</summary>
+
+**1. Code quality issue yang telah diperbaiki**<br/>
+- Menghapus modifier public pada interface. <br/>
+Sebelumnya, ProductService interface memiliki modifier public, yang sebenarnya tidak perlu ditulis lagi. Secara 
+default, method yang ada di dalam interface sudah bersifat public, jadi modifier tersebut bisa dihapus untuk membuat 
+kode lebih bersih.<br/><br/>
+
+- Menambahkan komentar untuk method kosong. <br/>
+Method setUp() dalam unit test dibiarkan kosong tanpa penjelasan. Untuk menghindari kebingungan, ditambahkan komentar 
+yang menjelaskan alasan mengapa method ini kosong.<br/><br/>
+
+- Mengubah createProduct menjadi CreateProduct. <br/>
+Sebelumnya, return value pada method di ProductController menggunakan createProduct, sementara file HTML yang 
+merendernya bernama CreateProduct. Untuk konsistensi dan menghindari error, return tersebut diubah menjadi 
+CreateProduct. Beberapa return lain yang sebelumnya diawali huruf kecil juga diperbaiki menjadi kapital sesuai dengan 
+nama file HTML-nya.<br/><br/>
+
+**2. Apakah CI/CD yang digunakan sudah sesuai dengan definisi Continuous Integration dan Continuous Deployment?**<br/>
+YEP! Saat ini, CI/CD sudah berjalan dengan baik menggunakan ci.yml, sonarcloud.yml, dan scorecard.yml. CI berjalan 
+otomatis setiap kali ada perubahan kode, memastikan semua perubahan diuji sebelum digabung ke branch main. SonarCloud 
+digunakan untuk analisis kode, menjaga kualitasnya agar tetap sesuai standar dan mencegah potensi masalah di production. 
+Deployment dilakukan otomatis setiap kali perubahan sudah divalidasi, memastikan aplikasi selalu dalam kondisi terbaru 
+tanpa perlu proses manual. Dengan demikian, implementasi CI/CD ini sudah cukup sesuai dengan definisinya.
 
 </details>
