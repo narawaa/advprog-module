@@ -6,6 +6,16 @@ plugins {
     id("org.sonarqube") version "4.4.1.3373"
 }
 
+sonar {
+    properties {
+        property("sonar.projectKey", "narawaa_advprog-module")
+        property("sonar.organization", "narawaa")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.gradle.skipCompile", "true")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+    }
+}
+
 group = "id.ac.ui.cs.advprog"
 version = "0.0.1-SNAPSHOT"
 
@@ -81,14 +91,5 @@ tasks.jacocoTestReport {
     reports {
         xml.required = true
         html.required = true
-    }
-}
-
-sonar {
-    properties {
-        property("sonar.projectKey", "narawaa_advprog-module")
-        property("sonar.organization", "narawaa")
-        property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
     }
 }
