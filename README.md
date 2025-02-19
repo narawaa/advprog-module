@@ -3,6 +3,7 @@ Pemrograman Lanjut (Advanced Programming) 2024/2025 Genap
 * NPM     : 2306241770
 * Kelas   : Pemrograman Lanjut - A
 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=narawaa_advprog-module&metric=coverage)](https://sonarcloud.io/summary/new_code?id=narawaa_advprog-module) <br/>
 Link Deployment: [ADVShop](https://advprog-module-narawaa.koyeb.app)
 
 <details>
