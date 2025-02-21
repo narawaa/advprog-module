@@ -63,4 +63,5 @@ jobs:
           args: >
             -Dsonar.projectKey=narawaa_advprog-module
             -Dsonar.organization=narawaa
+            -Dsonar.java.binaries=build/classes/java/main
           projectBaseDir: .
