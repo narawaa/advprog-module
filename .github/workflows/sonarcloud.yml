@@ -64,5 +64,6 @@ jobs:
             -Dsonar.projectKey=narawaa_advprog-module
             -Dsonar.organization=narawaa
             -Dsonar.java.binaries=build/classes/java/main
-            -Dsonar.exclusions=**/test/**,**/test/**/*,**/test-*/**,src/test/java/**,src/test/java/**/*
+            -Dsonar.exclusions=src/test/java/**
+            -Dsonar.coverage.exclusions=src/test/java/**
           projectBaseDir: .
