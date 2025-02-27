@@ -11,11 +11,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/car")
-class CarController extends ProductController {
+public class CarController {
     @Autowired
     private CarService carService;
 
-    private static final String REDIRECT_LIST_CAR = "redirect:listCar";
+    static final String REDIRECT_LIST_CAR = "redirect:listCar";
 
     @GetMapping("/createCar")
     public String createCarPage (Model model) {
@@ -25,7 +25,7 @@ class CarController extends ProductController {
     }
 
     @PostMapping("/createCar")
-    public String createCarPost (@ModelAttribute Car car, Model model) {
+    public String createCarPost (@ModelAttribute Car car) {
         carService.create(car);
         return REDIRECT_LIST_CAR;
     }
@@ -45,7 +45,7 @@ class CarController extends ProductController {
     }
 
     @PostMapping("/editCar")
-    public String editCarPost (@ModelAttribute Car car, Model model) {
+    public String editCarPost (@ModelAttribute Car car) {
         carService.update(car.getCarId(), car);
         return REDIRECT_LIST_CAR;
     }
