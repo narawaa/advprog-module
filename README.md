@@ -69,3 +69,34 @@ Deployment dilakukan otomatis setiap kali perubahan sudah divalidasi, memastikan
 tanpa perlu proses manual. Dengan demikian, implementasi CI/CD ini sudah cukup sesuai dengan definisinya.
 
 </details>
+
+<details>
+<summary>Module 3</summary>
+
+### Reflection
+**Prinsip SOLID yang diimplementasi** <br/>
+**1. Prinsip Single Responsibility Principle (SRP)** <br/>
+Diterapkan dengan memisahkan tanggung jawab dalam berbagai kelas, seperti ProductController yang hanya menangani 
+permintaan HTTP, ProductService yang mengelola logika bisnis, dan ProductRepository yang menangani akses data. Hal ini 
+membuat kode lebih terstruktur dan mudah dipelihara. <br/>
+**2. Open/Closed Principle (OCP)**<br/>
+Diterapkan dengan penggunaan ProductService yang memungkinkan perluasan fungsionalitas tanpa perlu mengubah kode 
+yang sudah ada. Jika ada tambahan fitur baru, cukup buat implementasi baru tanpa merusak struktur sebelumnya. <br/>
+**3. Dependency Inversion Principle (DIP)** <br/>
+Terlihat dalam penggunaan interface dan injeksi dependensi pada ProductController yang bergantung pada ProductService 
+tanpa langsung mengikatnya ke implementasi spesifik sehingga lebih fleksibel.
+
+**Keuntungan dari menerapkan SOLID** <br/>
+Penerapan prinsip SOLID ini memberikan berbagai keuntungan seperti kemudahan dalam pemeliharaan karena setiap perubahan 
+hanya mempengaruhi bagian tertentu tanpa merusak sistem secara keseluruhan. Kode juga menjadi lebih fleksibel dan mudah 
+diperluas misalnya saat menambahkan fitur baru, cukup buat implementasi baru tanpa perlu mengubah kode yang sudah ada 
+sehingga risiko bug lebih kecil.
+
+**Kekurangan dari tidak menerapkan SOLID** <br/>
+Jika prinsip SOLID tidak diterapkan, kode menjadi sulit dikelola, kurang fleksibel, dan rawan duplikasi. Contohnya, jika
+CarController tidak dipisahkan, semua logika car bercampur dengan product, menyebabkan perubahan satu fitur bisa 
+mengganggu yang lain. Pengujian juga lebih sulit karena fitur yang tidak terkait ikut terpengaruh. Selain itu, tanpa 
+abstraksi pada service, controller bergantung langsung pada implementasi, sehingga perubahan di satu bagian dapat 
+merusak keseluruhan sistem.
+
+</details>
