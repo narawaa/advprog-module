@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -26,7 +27,7 @@ class PaymentRepositoryTest {
         List<Product> products = new ArrayList<>();
         Product product = new Product();
         product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
-        product.setProductName("Sampo Cap Bambang");
+        product.setProductName("Sampo");
         product.setProductQuantity(2);
         products.add(product);
 
@@ -91,12 +92,12 @@ class PaymentRepositoryTest {
     void testSaveExistingPayment() {
         paymentRepository.save(payment1);
 
-        payment1.setStatus("SUCCESS");
+        payment1.setStatus(PaymentStatus.SUCCESS.getValue());
         Payment updatedPayment = paymentRepository.save(payment1);
 
-        assertEquals("SUCCESS", updatedPayment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), updatedPayment.getStatus());
 
         Payment foundPayment = paymentRepository.findById(payment1.getId());
-        assertEquals("SUCCESS", foundPayment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), foundPayment.getStatus());
     }
 }
