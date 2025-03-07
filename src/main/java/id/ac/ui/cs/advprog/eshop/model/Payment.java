@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import enums.PaymentStatus;
 import lombok.Getter;
+
 import java.util.Map;
 
 @Getter
@@ -16,7 +18,7 @@ public class Payment {
         this.order = order;
         this.method = method;
         this.paymentData = paymentData;
-        this.status = "WAITING";
+        this.status = PaymentStatus.WAITING.getValue();
     }
 
     public void validateAndSetStatus() {
@@ -31,7 +33,7 @@ public class Payment {
 
     private void validateVoucher() {
         String voucherCode = paymentData.get("voucherCode");
-        setStatus("REJECTED");
+        setStatus(PaymentStatus.REJECTED.getValue());
 
         if (voucherCode == null || voucherCode.length() != 16) {
             return;
@@ -52,7 +54,7 @@ public class Payment {
             return;
         }
 
-        setStatus("SUCCESS");
+        setStatus(PaymentStatus.SUCCESS.getValue());
     }
 
     private void validateBankTransfer() {
@@ -60,18 +62,18 @@ public class Payment {
         String referenceCode = paymentData.get("referenceCode");
 
         if (bankName != null && !bankName.isEmpty() && referenceCode != null && !referenceCode.isEmpty()) {
-            setStatus("SUCCESS");
+            setStatus(PaymentStatus.SUCCESS.getValue());
         } else {
-            setStatus("REJECTED");
+            setStatus(PaymentStatus.REJECTED.getValue());
         }
     }
 
     public void setStatus(String status) {
         this.status = status;
-        if (status.equals("SUCCESS")) {
-            this.order.setStatus("SUCCESS");
-        } else if (status.equals("REJECTED")) {
-            this.order.setStatus("FAILED");
+        if (status.equals(PaymentStatus.SUCCESS.getValue())) {
+            this.order.setStatus(PaymentStatus.SUCCESS.getValue());
+        } else if (status.equals(PaymentStatus.REJECTED.getValue())) {
+            this.order.setStatus(PaymentStatus.FAILED.getValue());
         }
     }
 }

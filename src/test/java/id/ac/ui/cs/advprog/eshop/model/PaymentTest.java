@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,15 +36,15 @@ public class PaymentTest {
         assertEquals(this.order, payment.getOrder());
         assertEquals("VOUCHER", payment.getMethod());
         assertEquals(this.paymentData, payment.getPaymentData());
-        assertEquals("WAITING", payment.getStatus());
+        assertEquals(PaymentStatus.WAITING.getValue(), payment.getStatus());
     }
 
     @Test
     void testSetPaymentStatus() {
         Payment payment = new Payment("payment-123", this.order, "VOUCHER", this.paymentData);
-        payment.setStatus("SUCCESS");
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
 
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
@@ -52,7 +53,7 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "VOUCHER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
@@ -61,7 +62,7 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "VOUCHER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -70,7 +71,7 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "VOUCHER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -79,7 +80,7 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "VOUCHER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -89,7 +90,7 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
 
     @Test
@@ -98,7 +99,7 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -108,7 +109,7 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
@@ -118,16 +119,13 @@ public class PaymentTest {
         Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
         payment.validateAndSetStatus();
 
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
 
     @Test
     void testUnsupportedPaymentMethod() {
         Payment payment = new Payment("payment-123", this.order, "UNKNOWN_METHOD", this.paymentData);
-
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            payment.validateAndSetStatus();
-        });
+        Exception exception = assertThrows(IllegalArgumentException.class, payment::validateAndSetStatus);
 
         assertTrue(exception.getMessage().contains("Unsupported payment method"));
     }
