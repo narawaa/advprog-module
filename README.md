@@ -100,3 +100,19 @@ abstraksi pada service, controller bergantung langsung pada implementasi, sehing
 merusak keseluruhan sistem.
 
 </details>
+
+<details>
+<summary>Module 4</summary>
+
+### Reflection
+**Refleksi Terhadap TDD Flow**<br/>
+TDD cukup membantu dalam memastikan correctness, maintainability, dan produktivitas, meskipun masih sulit bagi saya 
+untuk menulis tes sebelum implementasi. Ke depannya, saya harus lebih disiplin dalam merancang tes sejak awal dan 
+memastikan skenario pengujian mencakup berbagai kemungkinan.
+
+**Evaluasi Implementasi F.I.R.S.T.**<br/>
+Tes yang saya buat belum sepenuhnya mengikuti prinsip F.I.R.S.T., terlihat dari belum tercapainya 100% coverage dan 
+beberapa tes yang masih bergantung satu sama lain. Saya perlu memastikan setiap tes berjalan secara independen, cepat, dan 
+memiliki hasil yang jelas agar pengujian lebih optimal.
+
+</details>
