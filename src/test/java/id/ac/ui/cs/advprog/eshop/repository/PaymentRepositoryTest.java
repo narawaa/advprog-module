@@ -18,6 +18,7 @@ class PaymentRepositoryTest {
     PaymentRepository paymentRepository;
     Payment payment1;
     Payment payment2;
+    Payment payment3;
     Order order;
 
     @BeforeEach
@@ -42,6 +43,7 @@ class PaymentRepositoryTest {
 
         payment1 = new Payment("payment-123", order, "VOUCHER", voucherData);
         payment2 = new Payment("payment-456", order, "BANK_TRANSFER", bankTransferData);
+        payment3 = new Payment("payment-hmm", order, "VOUCHER", voucherData);
     }
 
     @Test
@@ -99,5 +101,14 @@ class PaymentRepositoryTest {
 
         Payment foundPayment = paymentRepository.findById(payment1.getId());
         assertEquals(PaymentStatus.SUCCESS.getValue(), foundPayment.getStatus());
+    }
+
+    @Test
+    void testFindByIdWithNullId() {
+        paymentRepository.save(payment1);
+        paymentRepository.save(payment2);
+
+        Payment foundPayment = paymentRepository.findById(null);
+        assertNull(foundPayment);
     }
 }

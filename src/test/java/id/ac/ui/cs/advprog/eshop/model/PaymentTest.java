@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import enums.OrderStatus;
 import enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,6 +67,15 @@ public class PaymentTest {
     }
 
     @Test
+    void testVoucherPaymentValidation_InvalidCode() {
+        this.paymentData.put(null, "ESHOP123456");
+        Payment payment = new Payment("payment-123", this.order, "VOUCHER", this.paymentData);
+        payment.validateAndSetStatus();
+
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
+
+    @Test
     void testVoucherPaymentValidation_InvalidPrefix() {
         this.paymentData.put("voucherCode", "SHOP12345678ABCD");
         Payment payment = new Payment("payment-123", this.order, "VOUCHER", this.paymentData);
@@ -94,25 +104,6 @@ public class PaymentTest {
     }
 
     @Test
-    void testBankTransferPaymentValidationMissingBankName() {
-        this.paymentData.put("referenceCode", "REF0707");
-        Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
-        payment.validateAndSetStatus();
-
-        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
-    }
-
-    @Test
-    void testBankTransferPaymentValidationEmptyReferenceCode() {
-        this.paymentData.put("bankName", "BCA");
-        this.paymentData.put("referenceCode", "");
-        Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
-        payment.validateAndSetStatus();
-
-        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
-    }
-
-    @Test
     void testBankTransferPaymentValidationNullValues() {
         this.paymentData.put("bankName", null);
         this.paymentData.put("referenceCode", null);
@@ -123,10 +114,73 @@ public class PaymentTest {
     }
 
     @Test
+    void testValidateBankTransferEdgeCases() {
+        Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
+
+        // Kasus 1: bankName null, referenceCode valid
+        this.paymentData.put("bankName", null);
+        this.paymentData.put("referenceCode", "REF0707");
+        payment.validateAndSetStatus();
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+
+        // Kasus 2: bankName kosong, referenceCode valid
+        this.paymentData.put("bankName", "");
+        this.paymentData.put("referenceCode", "REF0707");
+        payment.validateAndSetStatus();
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+
+        // Kasus 3: bankName valid, referenceCode null
+        this.paymentData.put("bankName", "BCA");
+        this.paymentData.put("referenceCode", null);
+        payment.validateAndSetStatus();
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+
+        // Kasus 4: bankName valid, referenceCode kosong
+        this.paymentData.put("bankName", "BCA");
+        this.paymentData.put("referenceCode", "");
+        payment.validateAndSetStatus();
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+
+        // Kasus 5: bankName null, referenceCode null
+        this.paymentData.put("bankName", null);
+        this.paymentData.put("referenceCode", null);
+        payment.validateAndSetStatus();
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
+
+    @Test
     void testUnsupportedPaymentMethod() {
         Payment payment = new Payment("payment-123", this.order, "UNKNOWN_METHOD", this.paymentData);
         Exception exception = assertThrows(IllegalArgumentException.class, payment::validateAndSetStatus);
 
         assertTrue(exception.getMessage().contains("Unsupported payment method"));
+    }
+
+    @Test
+    void testSetStatusWhenParamDoesNotMatch() {
+        boolean result = PaymentStatus.contains("INVALID_STATUS");
+        assertFalse(result);
+    }
+
+    @Test
+    void testSetStatusWithNullParam() {
+        boolean result = PaymentStatus.contains(null);
+        assertFalse(result);
+    }
+
+    @Test
+    void testSetStatusWithValidParam() {
+        boolean result = PaymentStatus.contains("SUCCESS");
+        assertTrue(result);
+    }
+
+    @Test
+    void testSetStatusWithOtherValue() {
+        Payment payment = new Payment("payment-123", this.order, "BANK_TRANSFER", this.paymentData);
+        payment.setStatus(PaymentStatus.WAITING.getValue());
+
+        assertEquals(PaymentStatus.WAITING.getValue(), payment.getStatus());
+        assertNotEquals(PaymentStatus.SUCCESS.getValue(), payment.getOrder().getStatus());
+        assertNotEquals(PaymentStatus.FAILED.getValue(), payment.getOrder().getStatus());
     }
 }
